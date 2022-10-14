@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 })
 
 
-const MONGO_URI = process.env.MONGO_URI;
+const MONGO_URI = process.env.MONGO_URL;
 const PORT = process.env.PORT || 5001;
 
 const connectDB = async () => {
@@ -41,7 +41,7 @@ mongoose.connection.on("open", () => console.log("Connection to database has bee
 mongoose.connection.on("error", (err) => console.log(err));
 const client = redis.createClient();  
 (async () => {
-    await client.connect();
+    await client.connect({url: process.env.REDIS_URL});
 })();
 
 client.on('connect', () => console.log('Redis Client Connected'));
