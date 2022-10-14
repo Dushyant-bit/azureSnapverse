@@ -39,9 +39,9 @@ connectDB();
 
 mongoose.connection.on("open", () => console.log("Connection to database has been established successfully"));
 mongoose.connection.on("error", (err) => console.log(err));
-const client = redis.createClient();  
+const client = redis.createClient({url: process.env.REDIS_URL});  
 (async () => {
-    await client.connect({url: process.env.REDIS_URL});
+    await client.connect();
 })();
 
 client.on('connect', () => console.log('Redis Client Connected'));
